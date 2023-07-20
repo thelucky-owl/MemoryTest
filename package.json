@@ -1,0 +1,11 @@
+{
+  "name": "memorytest",
+  "version": "1.0.0",
+  "description": "Memory game test",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Fela",
+  "license": "ISC"
+}

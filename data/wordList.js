@@ -1,0 +1,33 @@
+export const wordList = [
+    {
+        name:"hond",
+        picture:"empty",
+        sound:"empty"
+    },
+    {
+        name:"kat",
+        picture:"empty",
+        sound:"empty"
+    },
+    {
+        name:"fiets",
+        picture:"empty",
+        sound:"empty"
+    },
+    {
+        name:"motor",
+        picture:"empty",
+        sound:"empty"
+    },
+    {
+        name:"auto",
+        picture:"empty",
+        sound:"empty"
+    },
+    {
+        name:"vis",
+        picture:"empty",
+        sound:"empty"
+    },
+
+];
