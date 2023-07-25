@@ -1,44 +1,45 @@
-// import { wordList } from "../data/wordList"
+// import { wordList } from "../data/audio/"
+//voice is google wave net nl-d
 const wordList = [
     {
-        name:"hond",
-        picture:"empty",
-        sound:"empty"
+        name:"Juf",
+        picture:"data/imgs/femaleTeacher.png",
+        sound:"data/audio/juf.mp3"
     },
     {
-        name:"kat",
-        picture:"empty",
-        sound:"empty"
+        name:"School",
+        picture:"data/imgs/school.png",
+        sound:"data/audio/school.mp3"
     },
     {
-        name:"paard",
-        picture:"empty",
-        sound:"empty"
+        name:"Kist",
+        picture:"data/imgs/chest.png",
+        sound:"data/audio/kist.mp3"
     },
     {
-        name:"vis",
-        picture:"empty",
-        sound:"empty"
+        name:"Kleed",
+        picture:"data/imgs/rug.png",
+        sound:"data/audio/kleed.mp3"
     },
     {
-        name:"fiets",
-        picture:"empty",
-        sound:"empty"
+        name:"Meester",
+        picture:"data/imgs/teacherMale.png",
+        sound:"data/audio/meester.mp3"
     },
     {
-        name:"motor",
-        picture:"empty",
-        sound:"empty"
+        name:"Stoel",
+        picture:"data/imgs/chair.png",
+        sound:"data/audio/stoel.mp3"
     },
     {
-        name:"auto",
-        picture:"empty",
-        sound:"empty"
+        name:"Lokaal",
+        picture:"data/imgs/classroom.jpg",
+        sound:"data/audio/lokaal.mp3"
     },
     {
-        name:"boot",
-        picture:"empty",
-        sound:"empty"
+        name:"Deur",
+        picture:"data/imgs/door.png",
+        sound:"data/audio/deur.mp3"
     },
 ];
 const numberOfCards = 6;
@@ -70,20 +71,36 @@ for (let card = 0; card < pickedCardsDouble.length; card++) {
     //create a new card
     const newCard = document.createElement("div");
     newCard.classList.add("card");
+    //add audio
+    let sound = new Audio(pickedCardsDouble[card].data.sound)
+    //add image
+    const newImg = document.createElement("img");
+    newImg.src = pickedCardsDouble[card].data.picture;
+    newImg.classList.add("img")
+    newImg.classList.add("invisible")
+    //add text
+    const newText = document.createElement("div");
+    newText.innerText = pickedCardsDouble[card].data.name;
+    newText.classList.add("invisible")
+    newCard.appendChild(newText);
     //add a clickhandler
     newCard.addEventListener("click", ()=>{
+        sound.play();
         //check if a turn is already happening
         if(awaitingEndOfTurn){
             return;
         }
         //on click add show word in html
-        newCard.innerText = pickedCardsDouble[card].data.name;
+        // newCard.innerText = pickedCardsDouble[card].data.name;
+        newText.classList.remove("invisible");
+        newImg.classList.remove("invisible");
+        newText.classList.add("visible");
+        newImg.classList.add("visible");
         if(!selectedCard){
             selectedCard = newCard;
             return;
         };
-        const match = selectedCard.innerText;
-        if(match === newCard.innerText){
+        if( selectedCard.innerText=== newCard.innerText && selectedCard != newCard){
             console.log("yippie!");
             selectedCard.classList.add("correct");
             newCard.classList.add("correct");
@@ -94,14 +111,21 @@ for (let card = 0; card < pickedCardsDouble.length; card++) {
         selectedCard.classList.add("incorrect");
         newCard.classList.add("incorrect");
         setTimeout(()=>{
-            newCard.innerText = null;
-            selectedCard.innerText = null;
             selectedCard.classList.remove("incorrect");
+            for (const child of selectedCard.children) {
+               child.classList.remove("visible");
+               child.classList.add("invisible");
+              }
             newCard.classList.remove("incorrect");
+            newText.classList.remove("visible");
+            newImg.classList.remove("visible");
+            newText.classList.add("invisible");
+        newImg.classList.add("invisible");
             awaitingEndOfTurn = false;
             selectedCard = null;
         },1000)
     });
+    newCard.appendChild(newImg);
     cardsContainer.appendChild(newCard);
 };
 
