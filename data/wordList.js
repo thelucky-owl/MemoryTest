@@ -1,4 +1,4 @@
-export const wordList = [
+export default wordList = [
     {
         name:"hond",
         picture:"empty",
