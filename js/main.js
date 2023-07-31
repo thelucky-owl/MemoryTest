@@ -66,7 +66,6 @@ for (let i = 0; i < numberOfCards/2; i++) {
     const card = wordList[randomIndex];
     wordList.splice(randomIndex, 1);
     pickedCards.push(card);
-    console.log(randomIndex)
 };
 //make a matching value in the array, then randomize order
 let pickedCardsDouble = [...pickedCards, ...pickedCards];
@@ -124,25 +123,17 @@ function clickhandler(card,img,text,sound){
     if( selectedCard.innerText=== card.innerText && selectedCard != card){
         selectedCard.classList.add("correct");
         card.classList.add("correct");
-        console.log(pickedCardsDouble)
-        console.log(playerTurn);
         findSolvedCard(card.innerText);
         switch(playerTurn){
             case false:        
                     replaceCard(card,selectedCard);
-                    addCardToScore(img.src,text.innerText);
-
-                    // player1Ui.appendChild(card);
-                    // selectedCard.remove();
+                    addCardToScore(document.getElementById("player-1-solved"),img.src,text.innerText);
                 break;
             case true:
-                    console.log("player2")
+                    addCardToScore(document.getElementById("player-2-solved"),img.src,text.innerText);
                     replaceCard(card,selectedCard);
-                    // player2Ui.appendChild(card);
-                    // selectedCard.remove();
                 break;
             };
-                //add new cards
         selectedCard = null;
         return;
     }
@@ -219,8 +210,18 @@ function replaceCard(card1,card2){
         card2.removeChild(card2.lastChild);
       }
 }
-function addCardToScore(imgSrc,textSrc){
-    const parent = document.getElementById("player-1-solved");
+function addCardToScore(parentHtml,imgSrc,textSrc){
+    const  parent = parentHtml;
+    // switch(playerTurn){
+    // case false:        
+    // console.log("player 1")
+    //     parent = document.getElementById("player-1-solved");
+    // break;
+    // case true:
+    // console.log("player 2")
+    //     parent = document.getElementById("player-2-solved");
+    // break;
+    // }
     const newSolvedCard = document.createElement("div");
     newSolvedCard.classList.add("card","solved");
     const newSolvedImg = document.createElement("img");
