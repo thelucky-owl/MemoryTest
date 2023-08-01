@@ -1,8 +1,9 @@
-body{
+html , body{
     background-color: rgb(37, 55, 83);
     margin: 0;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 #playfield{
     background-color: lightblue;
@@ -27,8 +28,8 @@ body{
 background-color: rgb(35, 63, 107) ;
 border: solid lightblue 2px;
 border-radius: 20px;
-width: 200px;
-height: 200px;
+width: 250px;
+height: 250px;
 cursor: pointer;
 }
 .correct{
@@ -104,4 +105,65 @@ cursor: pointer;
 .solved{
     width: 100px;
     height: 100px;
+}
+#restart-button{
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    color: white;
+    cursor: pointer;
+}
+@media only screen and (max-width: 1100px) {
+    #ui{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    #playfield{
+        height: 70%;
+        width: 90%;
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+    #player-ui-1{
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100vw;
+        height: 10%;
+        
+    }
+    #player-ui-2{
+        width: 100vw;
+        height: 10%;
+    }
+    .solved-cards{
+        width: inherit;
+        display: flex;
+        flex-direction: row;
+    }
+    .card{
+        height: 170px;
+        width: 170px;
+    }
+    #player-1{
+        top: unset;
+        margin: auto;
+        width: 10%;
+        left: unset;
+        position: relative;
+        transform: unset;
+        transform: rotate(-180deg);
+    }
+    #player-2{
+        top: unset;
+        left: unset;
+        width: 10%;
+        position: relative;
+        margin: auto;
+        transform: unset;
+    }
+    #restart-button{
+        left: auto;
+        top: 50%;
+    }
 }
