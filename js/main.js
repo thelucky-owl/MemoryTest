@@ -120,18 +120,27 @@ function clickhandler(card,img,text,sound){
         selectedCard = card;
         return;
     };
+    if(selectedCard.classList.contains("correct") || card.classList.contains("correct")){
+        console.log("already solved")
+        awaitingEndOfTurn = true;
+    setTimeout(()=>{
+        awaitingEndOfTurn = false;
+        selectedCard = null;
+    },1000)
+        return;
+    };
     if( selectedCard.innerText=== card.innerText && selectedCard != card){
         selectedCard.classList.add("correct");
         card.classList.add("correct");
         findSolvedCard(card.innerText);
         switch(playerTurn){
             case false:        
-                    replaceCard(card,selectedCard);
-                    addCardToScore(document.getElementById("player-1-solved"),img.src,text.innerText);
-                break;
+            replaceCard(card,selectedCard);
+            addCardToScore(document.getElementById("player-1-solved"),img.src,text.innerText);
+            break;
             case true:
-                    addCardToScore(document.getElementById("player-2-solved"),img.src,text.innerText);
-                    replaceCard(card,selectedCard);
+                addCardToScore(document.getElementById("player-2-solved"),img.src,text.innerText);
+                replaceCard(card,selectedCard);
                 break;
             };
         selectedCard = null;
@@ -151,7 +160,7 @@ function clickhandler(card,img,text,sound){
         text.classList.remove("visible");
         img.classList.remove("visible");
         text.classList.add("invisible");
-    img.classList.add("invisible");
+        img.classList.add("invisible");
     switch(playerTurn){
         case true:
             player1Html.classList.remove("turn");
@@ -212,16 +221,6 @@ function replaceCard(card1,card2){
 }
 function addCardToScore(parentHtml,imgSrc,textSrc){
     const  parent = parentHtml;
-    // switch(playerTurn){
-    // case false:        
-    // console.log("player 1")
-    //     parent = document.getElementById("player-1-solved");
-    // break;
-    // case true:
-    // console.log("player 2")
-    //     parent = document.getElementById("player-2-solved");
-    // break;
-    // }
     const newSolvedCard = document.createElement("div");
     newSolvedCard.classList.add("card","solved");
     const newSolvedImg = document.createElement("img");
@@ -232,7 +231,6 @@ function addCardToScore(parentHtml,imgSrc,textSrc){
     parent.appendChild(newSolvedCard)
     newSolvedCard.appendChild(newSolvedText);
     newSolvedCard.appendChild(newSolvedImg);
-    // lastSolvedCard.classList.remove("invisible");
 }
 function pickRandom(array){
     let randomIndex = Math.floor(Math.random()*array.length);
