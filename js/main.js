@@ -1,6 +1,6 @@
 // import { wordList } from "../data/audio/"
 //voice is google wave net nl-d
-const wordList = [
+const ogWordList = [
     {
         name:"Juf",
         picture:"data/imgs/femaleTeacher.png",
@@ -50,6 +50,7 @@ const wordList = [
         solved:false 
     },
 ];
+let wordList = [...ogWordList]
 let solvedPlayer1 = []
 let solvedPlayer2 = []
 const numberOfCards = 8;
@@ -59,48 +60,30 @@ let revealedCards = 0;
 let selectedCard = null;
 let playerTurn = false
 let awaitingEndOfTurn = false;
+let pickedCardsDouble
 
+pickRandomWords();
 
-for (let i = 0; i < numberOfCards/2; i++) {
-    let randomIndex = Math.floor(Math.random()*wordList.length)
-    const card = wordList[randomIndex];
-    wordList.splice(randomIndex, 1);
-    pickedCards.push(card);
-};
 //make a matching value in the array, then randomize order
-let pickedCardsDouble = [...pickedCards, ...pickedCards];
-pickedCardsDouble = pickedCardsDouble.sort((a, b) => 0.5 - Math.random());
+
 //get player html elements
 const player1Html  = document.getElementById("player-1");
 const player2Html  = document.getElementById("player-2");
-player1Html.classList.add("turn")
+const restartBtn = document.getElementById("restart-button");
+restartBtn.addEventListener("click",restartGame)
+player1Html.classList.add("turn");
 
-const player1Ui = document.getElementById("player-1-solved")
-const player2Ui = document.getElementById("player-2-solved")
+const player1Ui = document.getElementById("player-1-solved");
+const player2Ui = document.getElementById("player-2-solved");
+fillPlayfield();
+function fillPlayfield(){
+    //create cards then append them
+    for (let card = 0; card < pickedCardsDouble.length; card++) {
+        //create a new card
+        createNewCard(cardsContainer,pickedCardsDouble[card].sound,pickedCardsDouble[card].picture,pickedCardsDouble[card].name);
+    };
 
-//create cards then append them
-for (let card = 0; card < pickedCardsDouble.length; card++) {
-    createNewCard(cardsContainer,pickedCardsDouble[card].sound,pickedCardsDouble[card].picture,pickedCardsDouble[card].name);
-    //create a new card
-    // const newCard = document.createElement("div");
-    // newCard.classList.add("card");
-    // //add audio
-    // const newSound = new Audio(pickedCardsDouble[card].sound)
-    // //add image
-    // const newImg = document.createElement("img");
-    // newImg.src = pickedCardsDouble[card].picture;
-    // newImg.classList.add("img")
-    // newImg.classList.add("invisible")
-    // //add text
-    // const newText = document.createElement("div");
-    // newText.innerText = pickedCardsDouble[card].name;
-    // newText.classList.add("invisible")
-    // newCard.appendChild(newText);
-    // newCard.appendChild(newImg);
-    // cardsContainer.appendChild(newCard);
-    // //add a clickhandler
-    // newCard.addEventListener("click", ()=> clickhandler(newCard,newImg,newText,newSound));
-};
+}
 console.log(pickedCards)
 function clickhandler(card,img,text,sound){
 
@@ -235,4 +218,33 @@ function addCardToScore(parentHtml,imgSrc,textSrc){
 function pickRandom(array){
     let randomIndex = Math.floor(Math.random()*array.length);
     return randomIndex
+}
+function restartGame(){
+wordList =[...ogWordList]
+pickedCards =[]
+pickedCardsDouble = []
+deleteChilderen(player1Ui);
+deleteChilderen(player2Ui);
+deleteChilderen(cardsContainer);
+pickRandomWords();
+fillPlayfield();
+}
+function deleteChilderen(htmlElement){
+//   htmlElement.removeChild()
+  while (htmlElement.firstChild) {
+    htmlElement.removeChild(htmlElement.firstChild);
+    console.log("removed")
+}
+}
+function pickRandomWords(){
+    for (let i = 0; i < numberOfCards/2; i++) {
+        let randomIndex = Math.floor(Math.random()*wordList.length)
+        const card = wordList[randomIndex];
+        wordList.splice(randomIndex, 1);
+        console.log(ogWordList)
+        pickedCards.push(card);
+    };
+    pickedCardsDouble = [...pickedCards, ...pickedCards];
+    pickedCardsDouble = pickedCardsDouble.sort((a, b) => 0.5 - Math.random());
+    console.log(pickedCardsDouble)
 }
