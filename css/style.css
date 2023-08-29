@@ -6,13 +6,11 @@ html , body{
     overflow: hidden;
 }
 #playfield{
-    background-color: lightblue;
-    /* border: red solid 2px; */
     border-radius: 20px;
     margin: 0;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 40%;
   transform: translate(-50%, -50%);
     height: 90%;
     width: 70%;
@@ -36,6 +34,7 @@ cursor: pointer;
     background-color: rgb(79, 168, 103);
 }
 .incorrect{
+    transition: 0.3s;
     background-color: rgb(168, 79, 79);
 }
 .img{
@@ -88,8 +87,9 @@ cursor: pointer;
     transform: translate(-50%, 50%);
     transform: rotate(90deg);
 }
-.turn{
-    background-color: rgb(55, 109, 55);
+.your-turn{
+    transition: 1s;
+     background-color: rgb(95, 143, 221) !important;
 }
 .solved-cards{
     width:  200px;
@@ -106,6 +106,14 @@ cursor: pointer;
     width: 100px;
     height: 100px;
 }
+.animation-card{
+    position: absolute;
+    top: 90vh;
+    left: 43vw;
+    transition: all 0.3s ease-in-out;
+}
+
+
 #restart-button{
     position: absolute;
     top: 10px;
@@ -113,15 +121,135 @@ cursor: pointer;
     color: white;
     cursor: pointer;
 }
+#arrow{
+    display: block;
+    position: absolute;
+    height: 100px;
+    width: 150px;
+    z-index: 2;
+    top: 80vh;
+    left: 20%;
+    transform: rotate(180deg);
+    transition: 1s;
+}
+#arrow.change-turn-left{
+    transform:  translateX(0vw) rotate(-180deg);
+}
+#arrow.change-turn-right{
+    transform: translateX(45vw) rotate(0deg);
+}
+#solved-popup{
+    overflow: hidden;
+    position: absolute;
+    left: 43vw;
+    top: 43vh;
+    z-index: 2;
+}
+#off-field-cards{
+    display: flex;
+    position: absolute;
+    top: 90vh;
+    left: 43vw;
+    z-index: 1;
+}
+#cards-left-counter{
+    font-size: 4em;
+    margin: auto;
+}
+.solved-card-number{
+    color: white;
+    margin: auto;
+    font-size: 2em;
+    
+}
+.solved-card-container{
+    width: 130;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    
+}
 @media only screen and (max-width: 1100px) {
+    body{
+        overflow: hidden;
+    }
     #ui{
         display: flex;
         justify-content: space-between;
         flex-direction: column;
     }
     #playfield{
+        position: absolute;
+        left: 50vw;
+        top: 40vh;
         height: 70%;
         width: 90%;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+    #player-ui-1{
+        display: flex;
+        flex-direction: row-reverse;
+        width: 10vw;
+        height: 100vh;
+        
+    }
+    #player-ui-2{
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        width: 10vw;
+        height: 100vh;
+        left:90vw
+    }
+    .solved-cards{
+        width: inherit;
+        display: flex;
+        flex-direction: column;
+    }
+    .card{
+        height: 170px;
+        width: 170px;
+    }
+    .solved{
+        height: 100px;
+        width: 100px;
+    }
+    #player-1{
+        transform: translate(-50%,-50%) rotate(-90deg);
+        top: 85vh;
+        left: 15vw;
+    }
+    #player-2{
+        transform: translate(-50%,-50%) rotate(90deg);
+        top: 85vh;
+        left: -5vw;
+    }
+    #player-1-solved{
+        width: 120px;
+    }
+    #restart-button{
+        left: auto;
+        top: 50%;
+    }
+    #off-field-cards{
+        position: absolute;
+        top: 75vh;
+    }
+   
+}
+@media only screen and (max-width: 800px) {
+    #ui{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    #playfield{
+        position: absolute;
+        top: 48vh;
+        left: 30vw;
+        height: 70vh;
+        width: 90vw;
         display: grid;
         grid-template-columns: auto auto;
     }
@@ -129,13 +257,25 @@ cursor: pointer;
         display: flex;
         flex-direction: column-reverse;
         width: 100vw;
-        height: 10%;
-        
+        height: 15vh;
     }
+    /*this is fucked up somehow*/
     #player-ui-2{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
         width: 100vw;
-        height: 10%;
+        height: 15vh;
+        top: 85vh;
+        left: 0vw;
     }
+    #player-1-solved{
+        width: 100vw;
+    }
+    #player-2-solved{
+        width: 100vw;
+    }
+    /*this is fucked up somehow*/
     .solved-cards{
         width: inherit;
         display: flex;
@@ -145,25 +285,52 @@ cursor: pointer;
         height: 170px;
         width: 170px;
     }
+    .solved{
+        height: 100px;
+        width: 100px;
+    }
     #player-1{
+        text-align: center;
         top: unset;
         margin: auto;
-        width: 10%;
+        margin-right: 20px;
+        margin-top: 10px;
+        width: 20vw;
         left: unset;
         position: relative;
         transform: unset;
         transform: rotate(-180deg);
     }
     #player-2{
+        margin-right: 20px;
+        margin-bottom: 10px;
         top: unset;
-        left: unset;
-        width: 10%;
+        left: 80vw;
+        width: 20vw;
         position: relative;
-        margin: auto;
         transform: unset;
     }
     #restart-button{
+        margin-right: 20px;
         left: auto;
         top: 50%;
+        transform: rotate(-90deg);
+    }
+    #off-field-cards{
+        top: 50vh;
+        left:85vw;
+        transform: translate(-50%,-50%) rotate(-90deg);
+    }
+    #arrow{
+        top: 20vh;
+        left: 80vw;
+        transform: rotate(-90deg);
+        transition: 1s;
+    }
+    #arrow.change-turn-left{
+        transform:  translateY(0vw) rotate(-90deg);
+    }
+    #arrow.change-turn-right{
+        transform: translateY(60vw) rotate(-270deg);
     }
 }
