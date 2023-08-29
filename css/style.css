@@ -215,6 +215,10 @@ cursor: pointer;
         height: 100px;
         width: 100px;
     }
+    .solved-card-container{
+        display: flex;
+        flex-direction: column;
+    }
     #player-1{
         transform: translate(-50%,-50%) rotate(-90deg);
         top: 85vh;
@@ -288,6 +292,10 @@ cursor: pointer;
     .solved{
         height: 100px;
         width: 100px;
+    }
+    .solved-card-container{
+        display: flex;
+        flex-direction: column;
     }
     #player-1{
         text-align: center;
