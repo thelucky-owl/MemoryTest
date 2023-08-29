@@ -1,5 +1,5 @@
 //voice is google wave net nl-d
-const ogWordList = [
+const oldWordList = [
     {
         name:"Juf",
         picture:"data/imgs/femaleTeacher.png",
@@ -49,6 +49,68 @@ const ogWordList = [
         solved:false 
     },
 ];
+const ogWordList=[
+    {
+        name:"De school",
+        picture:"data/imgs/school.png",
+        sound:"data/audio/deSchool.mp3",
+        solved:false 
+    },
+    {
+        name:"Het lokaal",
+        picture:"data/imgs/classroom.png",
+        sound:"data/audio/hetLokaal.mp3",
+        solved:false 
+    },
+    {
+        name:"De rij",
+        picture:"data/imgs/rij.png",
+        sound:"data/audio/deRij.mp3",
+        solved:false 
+    },
+    {
+        name:"De klas",
+        picture:"data/imgs/deklasTemp.jpg",
+        sound:"data/audio/De klass.mp3",
+        solved:false 
+    },
+    {
+        name:"Ophangen",
+        picture:"data/imgs/ophangen.png",
+        sound:"data/audio/ophangen.mp3",
+        solved:false 
+    },
+    {
+        name:"Achterblijven",
+        picture:"data/imgs/AchterblijvenTemp.png",
+        sound:"data/audio/achterblijven.mp3",
+        solved:false 
+    },
+    {
+        name:"Binnen",
+        picture:"data/imgs/binnen.jpg",
+        sound:"data/audio/binnen.mp3",
+        solved:false 
+    },
+    {
+        name:"Zelfstandig",
+        picture:"data/imgs/zelfstandig.jpg",
+        sound:"data/audio/juf.mp3",
+        solved:false 
+    },
+    {
+        name:"Gedulig",
+        picture:"data/imgs/Geduldig.jpg",
+        sound:"data/audio/geduldig.mp3",
+        solved:false 
+    },
+    {
+        name:"Helpen",
+        picture:"data/imgs/helpen.png",
+        sound:"data/audio/helpen.mp3",
+        solved:false 
+    }
+]
 let wordList = [...ogWordList];
 let solvedPlayer1 = [];
 let solvedPlayer2 = [];
@@ -74,7 +136,7 @@ const stockCards = document.getElementById('off-field-cards');
 const cardsContainer = document.getElementById('playfield');
 const player1Html  = document.getElementById('player-1');
 const player2Html  = document.getElementById('player-2');
-const restartBtn = document.getElementById('restart-button');
+// const restartBtn = document.getElementById('restart-button');
 const arrow = document.getElementById('arrow');
 const solvedCardPopup = document.getElementById('solved-popup');
 const player1Ui = document.getElementById('player-1-solved');
@@ -83,7 +145,7 @@ const animationCard1 = document.getElementById('animation-card-1');
 const animationCard2 = document.getElementById('animation-card-2');
 
 //add event listeners and classes to memorycards and player
-restartBtn.addEventListener('click',restartGame);
+// restartBtn.addEventListener('click',restartGame);
 solvedCardPopup.classList.add('card');
 body.addEventListener('click', (e)=> globalClickHandler(e));
 player1Ui.classList.add('your-turn');
@@ -346,17 +408,17 @@ function addCardToScore(parentHtml,imgSrc,textSrc,playerScore){
     };
 };
 //dont use this function during test
-function restartGame(){
-    //player 1 should start again
-wordList =[...ogWordList];
-pickedCards =[];
-pickedCardsDouble = [];
-deleteChilderen(player1Ui);
-deleteChilderen(player2Ui);
-deleteChilderen(cardsContainer);
-pickRandomWords();
-fillPlayfield();
-}
+// function restartGame(){
+//     //player 1 should start again
+// wordList =[...ogWordList];
+// pickedCards =[];
+// pickedCardsDouble = [];
+// deleteChilderen(player1Ui);
+// deleteChilderen(player2Ui);
+// deleteChilderen(cardsContainer);
+// pickRandomWords();
+// fillPlayfield();
+// }
 function deleteChilderen(htmlElement){
   while (htmlElement.firstChild) {
     htmlElement.removeChild(htmlElement.firstChild);
@@ -438,7 +500,7 @@ function animationScoreCards(scoreElement){
     let xposition = (scoreElement.children[scoreElement.children.length-1].getBoundingClientRect().x - animationCard1.offsetLeft - animationCard1.offsetWidth/2);
     let yposition = (scoreElement.children[scoreElement.children.length-1].getBoundingClientRect().y - animationCard1.offsetTop - animationCard1.offsetHeight/2);
     xposition = xposition+87;
-    yposition= yposition+87;
+    yposition= yposition+88;
     animationCard1.style.transition='0.3s';
     animationCard1.style.height = '100px'
     animationCard1.style.width = '100px'
